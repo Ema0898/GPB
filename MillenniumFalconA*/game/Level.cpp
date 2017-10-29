@@ -39,8 +39,6 @@ Level::Level(int stage, Player* player)
     mGameOverLabelOnScreen = 1.0f;
 
     mCurrentState = running;
-
-    mButterflyCount = 0;
 }
 
 Level::~Level()
@@ -144,19 +142,16 @@ void Level::handle_player_death()
 
 void Level::handle_enemy_spawning()
 {
-   /* if (InputManager::instance()->key_pressed(SDL_SCANCODE_E) && mButterflyCount < 16)
+    if (InputManager::instance()->key_pressed(SDL_SCANCODE_E))
     {
-        mEnemies.push_back(new Butterfly(mButterflyCount, 0, false));
-        mButterflyCount++;
-    }*/
+        mEnemies.push_back(new TIEFighter());
+    }
 }
 
 Level::LEVEL_STATES Level::get_state()
 {
     return mCurrentState;
 }
-
-
 
 void Level::update()
 {
@@ -169,7 +164,10 @@ void Level::update()
         handle_enemy_spawning();
 
         for (int i = 0; i < mEnemies.size(); ++i)
+        {
             mEnemies[i]->update();
+            mEnemies[i]->set_destiny(mPlayer->get_pos(world));
+        }
 
         handle_collisions();
 
@@ -184,7 +182,6 @@ void Level::update()
         }
     }
 }
-
 
 void Level::render()
 {

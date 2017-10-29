@@ -21,7 +21,7 @@ Player::Player()
     mMoveSpeed = 200.0f;
 
     mMoveBounds = Vector2(30.0f, 800.0f);
-    mDestiny = Vector2(18.0f, 24.0f);
+    mDestiny = Vector2(0, 15);
 
     mDeathAnimation = new AnimatedTexture("SpriteSheet.png", 250, 47, 32, 32, 4, 1.0f, AnimatedTexture::horizontal);
     mDeathAnimation->set_parent(this);
@@ -52,32 +52,6 @@ void Player::handle_movement()
     Pair current_pos = std::make_pair((int) (pos1.y / 32), (int) (pos1.x / 32));
     Pair current_des = std::make_pair((int) mDestiny.x, (int) mDestiny.y);
 
-    /*if (inputManager->key_down(SDL_SCANCODE_D))
-    {
-        translate(VEC2_RIGHT * mMoveSpeed * mTimer->delta_time(), world);
-    }
-    else if (inputManager->key_down(SDL_SCANCODE_A))
-    {
-        translate(-VEC2_RIGHT * mMoveSpeed * mTimer->delta_time(), world);
-    }
-    else if (inputManager->key_down(SDL_SCANCODE_W))
-    {
-        translate(-VEC2_UP * mMoveSpeed * mTimer->delta_time(), world);
-    }
-    else if (inputManager->key_down(SDL_SCANCODE_S))
-    {
-        translate(VEC2_UP * mMoveSpeed * mTimer->delta_time(), world);
-    }
-    else if (inputManager->key_pressed((SDL_SCANCODE_E)))
-    {
-        //std::cout << "///////////////////////////////" << std::endl;
-        //grid->print_matrix();
-        aStar->aStarSearch(grid->get_matrix(), current_pos, current_des);
-        //Pair delta = aStar->getCell();
-        std::cout << "PLAYER'S POSITION" << current_pos.first << ", " << current_pos.second << std::endl;
-        //std::cout << delta.first << ", " << delta.second << std::endl;
-    }*/
-
     aStar->aStarSearch(grid->get_matrix(), current_pos, current_des);
     Pair delta = aStar->getCell();
 
@@ -96,10 +70,11 @@ void Player::handle_movement()
     else if (delta.second < current_pos.second && delta.first == current_pos.first)
     {
         translate(-VEC2_RIGHT * mMoveSpeed * mTimer->delta_time(), world);
-        std::cout << delta.first << ", " << delta.second << std::endl;
-    } else
+    }
+    else if (inputManager->key_pressed((SDL_SCANCODE_Q)))
     {
-        std::cout << "Error Moving" << std::endl;
+        std::cout << "//////////////////////////////" << std::endl;
+        grid->print_matrix();
     }
 
     Vector2 pos = get_pos(local);

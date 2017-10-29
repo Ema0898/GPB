@@ -6,7 +6,7 @@
 #include "../entities/GameEntity.h"
 #include "../starbackground/BackgroundStars.h"
 #include "../player/Player.h"
-#include "../enemies/Enemy.h"
+#include "../enemies/TIEFighter.h"
 
 class Level : public GameEntity
 {
@@ -47,8 +47,7 @@ private:
 
     LEVEL_STATES mCurrentState;
 
-    int mButterflyCount;
-    std::vector<Enemy*> mEnemies;
+    std::vector<TIEFighter*> mEnemies;
 
 private:
     void start_stage();

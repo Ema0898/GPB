@@ -51,7 +51,7 @@ bool Graphics::init()
         return false;
     }
 
-    mWindow = SDL_CreateWindow("Galaga", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+    mWindow = SDL_CreateWindow("MillenniumFalcon", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     if (mWindow == nullptr)
     {
         std::cout << "Window Creation Error: " << SDL_GetError() << std::endl;

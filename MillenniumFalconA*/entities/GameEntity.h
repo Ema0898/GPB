@@ -2,6 +2,7 @@
 #define _GAMEENTITY_H
 
 #include "../tools/MathHelper.h"
+#include <iostream>
 
 class GameEntity
 {

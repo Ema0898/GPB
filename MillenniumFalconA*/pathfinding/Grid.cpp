@@ -36,7 +36,7 @@ void Grid::set_matrix_pos(int x, int y, int element)
             {
                 mMatrix[i][j] = element;
             }
-            else if (mMatrix[i][j] != 2)
+            else if (mMatrix[i][j] != 1)
             {
                 mMatrix[i][j] = 1;
             }

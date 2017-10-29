@@ -7,17 +7,24 @@ bool AStar::isValid(int row, int col)
 
 bool AStar::isUnBlocked(std::vector<std::vector<int>> grid, int row, int col)
 {
+    std::cout << (grid[row][col] == 1) << std::endl;
+
     if (grid[row][col] == 1)
-        return (true);
+    {
+        return true;
+    }
     else
-        return (false);
+    {
+        std::cout << "BLOCKED" << std::endl;
+        std::cout << row << col << std::endl;
+        return false;
+    }
 }
 
 bool AStar::isDestination(int row, int col, Pair dest)
 {
     if (row == dest.first && col == dest.second)
     {
-        std::cout << "ROW " << row << " COL " << col << std::endl;
         return true;
     }
     else
@@ -34,7 +41,6 @@ double AStar::calculateHValue(int row, int col, Pair dest)
 
 void AStar::tracePath(cell cellDetails[][COL], Pair dest)
 {
-    //std::cout << "The mPath is " << std::endl;
     int row = dest.first;
     int col = dest.second;
 
@@ -69,25 +75,25 @@ void AStar::aStarSearch(std::vector<std::vector<int>> grid, Pair src, Pair dest)
 {
     if (!isValid (src.first, src.second))
     {
-        std::cout << "Source is invalid" << src.first << std::endl;
+        //std::cout << "Source is invalid" << src.first << std::endl;
         return;
     }
 
     if (!isValid (dest.first, dest.second))
     {
-        std::cout << "Destination is invalid" << std::endl;
+        //std::cout << "Destination is invalid" << std::endl;
         return;
     }
 
     if (!isUnBlocked(grid, src.first, src.second) || !isUnBlocked(grid, dest.first, dest.second))
     {
-        std::cout << "Source or the destination is blocked" << std::endl;
+        //std::cout << "Source or the destination is blocked" << std::endl;
         return;
     }
 
     if (isDestination(src.first, src.second, dest))
     {
-        std::cout << "We are already at the destination" << std::endl;
+        //std::cout << "We are already at the destination" << std::endl;
         return;
     }
 
@@ -149,7 +155,6 @@ void AStar::aStarSearch(std::vector<std::vector<int>> grid, Pair src, Pair dest)
             {
                 cellDetails[i-1][j].parent_i = i;
                 cellDetails[i-1][j].parent_j = j;
-                //std::cout << "The destination cell is found" << std::endl;
                 tracePath (cellDetails, dest);
                 foundDest = true;
                 return;
@@ -181,7 +186,6 @@ void AStar::aStarSearch(std::vector<std::vector<int>> grid, Pair src, Pair dest)
             {
                 cellDetails[i+1][j].parent_i = i;
                 cellDetails[i+1][j].parent_j = j;
-                //std::cout << "The destination cell is found" << std::endl;
                 tracePath(cellDetails, dest);
                 foundDest = true;
                 return;
@@ -213,7 +217,6 @@ void AStar::aStarSearch(std::vector<std::vector<int>> grid, Pair src, Pair dest)
             {
                 cellDetails[i][j+1].parent_i = i;
                 cellDetails[i][j+1].parent_j = j;
-                //std::cout << "The destination cell is found" << std::endl;
                 tracePath(cellDetails, dest);
                 foundDest = true;
                 return;
@@ -245,7 +248,6 @@ void AStar::aStarSearch(std::vector<std::vector<int>> grid, Pair src, Pair dest)
             {
                 cellDetails[i][j-1].parent_i = i;
                 cellDetails[i][j-1].parent_j = j;
-                //std::cout << "The destination cell is found" << std::endl;
                 tracePath(cellDetails, dest);
                 foundDest = true;
                 return;
