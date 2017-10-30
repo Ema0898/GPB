@@ -9,7 +9,7 @@ Player::Player()
 
     aStar = new AStar();
 
-    mShip = new Texture("SpriteSheet.png", 178, 47, 32, 32);
+    mShip = new Texture("millennium_falcon2.png");
     mShip->set_parent(this);
     mShip->set_pos(VEC2_ZERO);
     mShip->set_scale(Vector2(3.0f, 3.0f));

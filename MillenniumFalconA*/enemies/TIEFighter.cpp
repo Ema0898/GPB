@@ -12,7 +12,7 @@ TIEFighter::TIEFighter()
 
     mMoveBounds = Vector2(30.0f, 800.0f);
 
-    mTexture = new Texture("butterfly.png");
+    mTexture = new Texture("tiefighter.png");
     mTexture->set_parent(this);
     mTexture->set_pos(VEC2_ZERO);
 
@@ -40,7 +40,7 @@ void TIEFighter::handle_movement()
     Pair current_pos = std::make_pair((int) (pos1.y / 32), (int) (pos1.x / 32));
     Pair current_des = std::make_pair((int) mDestiny.y / 32, (int) mDestiny.x / 32);
 
-    /*aStar->aStarSearch(grid->get_matrix(), current_pos, current_des);
+    aStar->aStarSearch(grid->get_matrix(), current_pos, current_des);
     Pair delta = aStar->getCell();
 
     if (delta.first < current_pos.first && delta.second == current_pos.second)
@@ -63,7 +63,7 @@ void TIEFighter::handle_movement()
         translate(-VEC2_RIGHT * mSpeed * mTimer->delta_time(), world);
         grid->set_matrix_pos(current_pos.second, current_pos.first, 0);
     }
-    */
+
 
     grid->set_matrix_pos(current_pos.second, current_pos.first, 0);
     Vector2 pos = get_pos(local);

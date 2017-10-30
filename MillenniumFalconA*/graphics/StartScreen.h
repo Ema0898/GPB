@@ -3,6 +3,7 @@
 
 #include "../entities/AnimatedTexture.h"
 #include "../managers/InputManager.h"
+#include "../managers/AudioManager.h"
 #include "../starbackground/BackgroundStars.h"
 
 class StartScreen : public GameEntity
@@ -12,6 +13,7 @@ private:
 
     Timer* mTimer;
     InputManager* inputManager;
+    AudioManager* audioManager;
 
     // Top Bar Entities
     GameEntity* mTopBar;

@@ -7,16 +7,12 @@ bool AStar::isValid(int row, int col)
 
 bool AStar::isUnBlocked(std::vector<std::vector<int>> grid, int row, int col)
 {
-    std::cout << (grid[row][col] == 1) << std::endl;
-
     if (grid[row][col] == 1)
     {
         return true;
     }
     else
     {
-        std::cout << "BLOCKED" << std::endl;
-        std::cout << row << col << std::endl;
         return false;
     }
 }

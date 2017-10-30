@@ -4,47 +4,48 @@ StartScreen::StartScreen()
 {
     mTimer = Timer::instance();
     inputManager = InputManager::instance();
+    audioManager = AudioManager::instance();
 
     // Top Bar Entities
     mTopBar = new GameEntity(Graphics::instance()->SCREEN_WIDTH / 2, 80.0f);
-    mPlayerOne = new Texture("1UP", "emulogic.ttf", 32, { 200, 0, 0 });
-    mPlayerTwo = new Texture("2UP", "emulogic.ttf", 32, { 200, 0, 0 });
-    mHighScore = new Texture("HI-SCORE", "emulogic.ttf", 32, { 200, 0, 0 });
+    mPlayerOne = new Texture("--", "Starjedi.ttf", 32, { 200, 0, 0 });
+    mPlayerTwo = new Texture("--", "Starjedi.ttf", 32, { 200, 0, 0 });
+    mHighScore = new Texture("A Star Wars Game", "Starjedi.ttf", 32, { 200, 0, 0 });
 
 
     mPlayerOne->set_parent(mTopBar);
     mPlayerTwo->set_parent(mTopBar);
     mHighScore->set_parent(mTopBar);
 
-    mPlayerOne->set_pos(Vector2(-Graphics::instance()->SCREEN_WIDTH * 0.35f, -30.0f));
+    mPlayerOne->set_pos(Vector2(-Graphics::instance()->SCREEN_WIDTH * 0.27f, -30.0f));
     mPlayerTwo->set_pos(Vector2(Graphics::instance()->SCREEN_WIDTH * 0.2f, -30.0f));
     mHighScore->set_pos(Vector2(-30.0f, -30.0f));
 
     mTopBar->set_parent(this);
 
     //Logo
-    mLogo = new Texture("logo.png", 0, 0, 489, 145);
-    mLogo->set_pos(Vector2(Graphics::instance()->SCREEN_WIDTH / 2, Graphics::instance()->SCREEN_HEIGHT * 0.40f));
+    mLogo = new Texture("Starwars-logo.png", 0, 0, 489, 210);
+    mLogo->set_pos(Vector2(Graphics::instance()->SCREEN_WIDTH / 2 - 20, Graphics::instance()->SCREEN_HEIGHT * 0.40f));
     mLogo->set_parent(this);
 
 
-    mAnimatedLogo = new AnimatedTexture("logoanimado.png", 0, 0, 360, 81, 3, 0.2f, AnimatedTexture::vertical);
+    mAnimatedLogo = new AnimatedTexture("starwarslogo-animado.png", 0, 0, 489, 215, 6, 1.0f, AnimatedTexture::vertical);
     mAnimatedLogo->set_pos(Vector2(Graphics::instance()->SCREEN_WIDTH / 2, Graphics::instance()->SCREEN_HEIGHT * 0.40f));
     mAnimatedLogo->set_parent(this);
 
     //Play Mode Entities
     mPlayModes = new GameEntity(Graphics::instance()->SCREEN_WIDTH / 2, Graphics::instance()->SCREEN_HEIGHT * 0.55f);
-    mOnePlayerMode = new Texture("1 Player", "emulogic.ttf", 32, { 230, 230, 230 });
-    mTwoPlayerMode = new Texture("2 Players", "emulogic.ttf", 32, { 230, 230, 230 });
+    mOnePlayerMode = new Texture("Start", "Starjedi.ttf", 32, { 255, 255, 0 });
+    mTwoPlayerMode = new Texture("Exit", "Starjedi.ttf", 32, { 255, 255, 0 });
     mCursor = new Texture("cursor.png");
 
     mOnePlayerMode->set_parent(mPlayModes);
     mTwoPlayerMode->set_parent(mPlayModes);
     mCursor->set_parent(mPlayModes);
 
-    mOnePlayerMode->set_pos(Vector2(-20.0f, -0.5f));
-    mTwoPlayerMode->set_pos(Vector2(0.0f, 60.0f));
-    mCursor->set_pos(Vector2(-190.0f, -0.5f));
+    mOnePlayerMode->set_pos(Vector2(-20.0f, 60.0f));
+    mTwoPlayerMode->set_pos(Vector2(-15.0f, 100.0f));
+    mCursor->set_pos(Vector2(-190.0f, 50.0f));
 
     mPlayModes->set_parent(this);
 
@@ -54,8 +55,8 @@ StartScreen::StartScreen()
 
     // Bottom Bar Entities
     mBotBar = new GameEntity(Graphics::instance()->SCREEN_WIDTH / 2, Graphics::instance()->SCREEN_HEIGHT * 0.7f);
-    mDates = new Texture("1981 1985 NAMCO LTD.", "emulogic.ttf", 32, { 230, 230, 230 });
-    mRights = new Texture("ALL RIGHTS RESERVED", "emulogic.ttf", 32, { 230, 230, 230 });
+    mDates = new Texture("Millennium Falcon Astar", "Starjedi.ttf", 32, { 255, 255, 0 });
+    mRights = new Texture("2017 TEC LTD.", "Starjedi.ttf", 32, { 255, 255, 0 });
 
     mDates->set_parent(mBotBar);
     mRights->set_parent(mBotBar);
@@ -70,6 +71,9 @@ StartScreen::StartScreen()
 
     mStars = BackgroundStars::instance();
     mStars->scroll(true);
+
+    audioManager->play_music("Star Wars Music Theme.wav", 0);
+
 }
 
 StartScreen::~StartScreen()
@@ -107,6 +111,9 @@ StartScreen::~StartScreen()
     mDates = nullptr;
     delete mRights;
     mRights = nullptr;
+
+    inputManager = nullptr;
+    audioManager = nullptr;
 }
 
 void StartScreen::reset_animation()
@@ -130,10 +137,13 @@ void StartScreen::change_selected_mode(int change)
     mSelectedMode += change;
 
     if (mSelectedMode < 0)
+    {
         mSelectedMode = 1;
-
+    }
     else if (mSelectedMode > 1)
+    {
         mSelectedMode = 0;
+    }
 
     mCursor->set_pos(mCursorStartPos + mCursorOffset * mSelectedMode);
 }

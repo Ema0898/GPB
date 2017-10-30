@@ -9,13 +9,13 @@ Level::Level(int stage, Player* player)
     mStageStarted = false;
     mLabelTimer = 0.0f;
 
-    mStageLabel = new Texture("Stage", "emulogic.ttf", 32, { 75, 75, 200 });
+    mStageLabel = new Texture("Stage", "Starjedi.ttf", 32, { 75, 75, 200 });
     mStageLabel->set_parent(this);
-    mStageLabel->set_pos(Vector2(Graphics::instance()->SCREEN_WIDTH * 0.35f, Graphics::instance()->SCREEN_HEIGHT * 0.5f));
+    mStageLabel->set_pos(Vector2(Graphics::instance()->SCREEN_WIDTH * 0.5f, Graphics::instance()->SCREEN_HEIGHT * 0.5f));
 
-    mReadyLabel = new Texture("Ready", "emulogic.ttf", 32, { 150, 0, 0 });
+    mReadyLabel = new Texture("Ready", "Starjedi.ttf", 32, { 150, 0, 0 });
     mReadyLabel->set_parent(this);
-    mReadyLabel->set_pos(Vector2(Graphics::instance()->SCREEN_WIDTH * 0.4f, Graphics::instance()->SCREEN_HEIGHT * 0.5f));
+    mReadyLabel->set_pos(Vector2(Graphics::instance()->SCREEN_WIDTH * 0.5f, Graphics::instance()->SCREEN_HEIGHT * 0.5f));
 
     mGameOverLabel = new Texture("GameOver", "emulogic.ttf", 32, { 150, 0, 0 });
     mGameOverLabel->set_parent(this);

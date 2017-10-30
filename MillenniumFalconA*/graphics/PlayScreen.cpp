@@ -7,9 +7,9 @@ PlayScreen::PlayScreen()
     audioManager = AudioManager::instance();
     mStars = BackgroundStars::instance();
 
-    mStartLabel = new Texture("Start", "emulogic.ttf", 32, { 150, 0, 0 });
+    mStartLabel = new Texture("Listen to the music...", "Starjedi.ttf", 32, { 150, 0, 0 });
     mStartLabel->set_parent(this);
-    mStartLabel->set_pos(Vector2(Graphics::instance()->SCREEN_WIDTH * 0.4f, Graphics::instance()->SCREEN_HEIGHT * 0.5f));
+    mStartLabel->set_pos(Vector2(Graphics::instance()->SCREEN_WIDTH * 0.5f, Graphics::instance()->SCREEN_HEIGHT * 0.5f));
 
     mLevel = nullptr;
 
@@ -59,7 +59,7 @@ void PlayScreen::start_new_game()
     mLevelStarted = false;
     mLevelStartTimer = 0.0f;
 
-    audioManager->play_music("galaga.wav", 0);
+    //audioManager->play_music("galaga.wav", 0);
     mCurrentStage = 0;
 }
 
