@@ -7,6 +7,8 @@
 #include "../starbackground/BackgroundStars.h"
 #include "../player/Player.h"
 #include "../enemies/TIEFighter.h"
+#include "../enemies/Asteroid.h"
+#include "../managers/AudioManager.h"
 
 class Level : public GameEntity
 {
@@ -18,6 +20,7 @@ public:
 
 private:
     Timer* mTimer;
+    AudioManager* audioManager;
 
     BackgroundStars* mStars;
 
@@ -40,7 +43,7 @@ private:
     float mGameOverLabelOnScreen;
 
     Player* mPlayer;
-    bool mPlayerHit;
+    bool mPlayerDestiny;
     float mPlayerRespawnDelay;
     float mPlayerRespawnTimer;
     float mPlayerRespawnLabelOnScreen;
@@ -48,6 +51,9 @@ private:
     LEVEL_STATES mCurrentState;
 
     std::vector<TIEFighter*> mEnemies;
+    std::vector<Asteroid*> mAsteroids;
+
+    Texture* mRebelBase;
 
 private:
     void start_stage();

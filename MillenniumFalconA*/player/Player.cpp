@@ -21,7 +21,7 @@ Player::Player()
     mMoveSpeed = 200.0f;
 
     mMoveBounds = Vector2(30.0f, 800.0f);
-    mDestiny = Vector2(0, 15);
+    mDestiny = Vector2(1, 22);
 
     mDeathAnimation = new AnimatedTexture("SpriteSheet.png", 250, 47, 32, 32, 4, 1.0f, AnimatedTexture::horizontal);
     mDeathAnimation->set_parent(this);
@@ -55,7 +55,7 @@ void Player::handle_movement()
     aStar->aStarSearch(grid->get_matrix(), current_pos, current_des);
     Pair delta = aStar->getCell();
 
-    if (delta.first < current_pos.first && delta.second == current_pos.second)
+    /*if (delta.first < current_pos.first && delta.second == current_pos.second)
     {
         translate(-VEC2_UP * mMoveSpeed * mTimer->delta_time(), world);
     }
@@ -75,7 +75,7 @@ void Player::handle_movement()
     {
         std::cout << "//////////////////////////////" << std::endl;
         grid->print_matrix();
-    }
+    }*/
 
     Vector2 pos = get_pos(local);
     if (pos.x < mMoveBounds.x)

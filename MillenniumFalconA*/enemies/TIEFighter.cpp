@@ -18,7 +18,8 @@ TIEFighter::TIEFighter()
 
     mDestiny = Vector2(18.0f, 24.0f);
 
-    this->set_pos(Vector2(300.0f, 150.0f));
+    //set_pos(Vector2(300.0f, 150.0f));
+    set_pos(Vector2(rand() % Graphics::instance()->SCREEN_WIDTH, Graphics::instance()->SCREEN_HEIGHT));
 }
 
 TIEFighter::~TIEFighter()

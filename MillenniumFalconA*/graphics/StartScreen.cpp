@@ -72,7 +72,7 @@ StartScreen::StartScreen()
     mStars = BackgroundStars::instance();
     mStars->scroll(true);
 
-    audioManager->play_music("Star Wars Music Theme.wav", 0);
+    //audioManager->play_music("Star Wars Music Theme.wav", 0);
 
 }
 

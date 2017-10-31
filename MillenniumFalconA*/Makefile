@@ -1,6 +1,6 @@
 
-output: main.o GameEntity.o Texture.o AnimatedTexture.o Game.o Level.o Graphics.o PlayScreen.o StartScreen.o AssetManager.o AudioManager.o InputManager.o ScreenManager.o Player.o BackgroundStars.o StarLayer.o Star.o Timer.o AStar.o Grid.o TIEFighter.o
-	g++ main.o GameEntity.o Texture.o AnimatedTexture.o Game.o Level.o Graphics.o PlayScreen.o StartScreen.o AssetManager.o AudioManager.o InputManager.o ScreenManager.o Player.o BackgroundStars.o StarLayer.o Star.o Timer.o AStar.o Grid.o TIEFighter.o `pkg-config --cflags --libs sdl2` -lSDL2_image -lSDL2_ttf -lSDL2_mixer -o output
+output: main.o GameEntity.o Texture.o AnimatedTexture.o Game.o Level.o Graphics.o PlayScreen.o StartScreen.o AssetManager.o AudioManager.o InputManager.o ScreenManager.o Player.o BackgroundStars.o StarLayer.o Star.o Timer.o AStar.o Grid.o TIEFighter.o Asteroid.o
+	g++ main.o GameEntity.o Texture.o AnimatedTexture.o Game.o Level.o Graphics.o PlayScreen.o StartScreen.o AssetManager.o AudioManager.o InputManager.o ScreenManager.o Player.o BackgroundStars.o StarLayer.o Star.o Timer.o AStar.o Grid.o TIEFighter.o Asteroid.o `pkg-config --cflags --libs sdl2` -lSDL2_image -lSDL2_ttf -lSDL2_mixer -o output
 
 main.o: main.cpp
 	g++ -c main.cpp
@@ -64,6 +64,9 @@ Grid.o: pathfinding/Grid.cpp pathfinding/Grid.h
 
 TIEFighter.o: enemies/TIEFighter.cpp enemies/TIEFighter.h
 	g++ -c enemies/TIEFighter.cpp
+
+Asteroid.o: enemies/Asteroid.cpp enemies/Asteroid.h
+	g++ -c enemies/Asteroid.cpp
 
 clean:
 	rm *.o output

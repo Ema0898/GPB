@@ -4,6 +4,7 @@ Level::Level(int stage, Player* player)
 {
     mTimer = Timer::instance();
     mStars = BackgroundStars::instance();
+    audioManager = AudioManager::instance();
 
     mStage = stage;
     mStageStarted = false;
@@ -17,12 +18,12 @@ Level::Level(int stage, Player* player)
     mReadyLabel->set_parent(this);
     mReadyLabel->set_pos(Vector2(Graphics::instance()->SCREEN_WIDTH * 0.5f, Graphics::instance()->SCREEN_HEIGHT * 0.5f));
 
-    mGameOverLabel = new Texture("GameOver", "Starjedi.ttf", 32, { 150, 0, 0 });
+    mGameOverLabel = new Texture("The heroes are safe!", "Starjedi.ttf", 32, { 150, 0, 0 });
     mGameOverLabel->set_parent(this);
-    mGameOverLabel->set_pos(Vector2(Graphics::instance()->SCREEN_WIDTH * 0.4f, Graphics::instance()->SCREEN_HEIGHT * 0.5f));
+    mGameOverLabel->set_pos(Vector2(Graphics::instance()->SCREEN_WIDTH * 0.5f, Graphics::instance()->SCREEN_HEIGHT * 0.5f));
 
     mPlayer = player;
-    mPlayerHit = false;
+    mPlayerDestiny = false;
     mPlayerRespawnDelay = 3.0f;
     mPlayerRespawnTimer = 0.0f;
     mPlayerRespawnLabelOnScreen = 2.0f;
@@ -38,6 +39,10 @@ Level::Level(int stage, Player* player)
     mGameOverTimer = 0.0f;
     mGameOverLabelOnScreen = 1.0f;
 
+    mRebelBase = new Texture("rebel-base2.png");
+    mRebelBase->set_parent(this);
+    mRebelBase->set_pos(Vector2(700, 75));
+
     mCurrentState = running;
 }
 
@@ -45,6 +50,7 @@ Level::~Level()
 {
     mTimer = nullptr;
     mStars = nullptr;
+    audioManager = nullptr;
 
     delete mStageLabel;
     mStageLabel = nullptr;
@@ -61,6 +67,12 @@ Level::~Level()
     {
         delete mEnemies[i];
         mEnemies[i] = nullptr;
+    }
+
+    for (int i = 0; i < mAsteroids.size(); ++i)
+    {
+        delete mAsteroids[i];
+        mAsteroids[i] = nullptr;
     }
 
 }
@@ -94,16 +106,23 @@ void Level::handle_start_label()
 
 void Level::handle_collisions()
 {
-    if (!mPlayerHit)
+    if (InputManager::instance()->instance()->key_pressed((SDL_SCANCODE_X)))
     {
-        if (InputManager::instance()->instance()->key_pressed((SDL_SCANCODE_X)))
-        {
-            mPlayer->was_hit();
+        std::cout << "HOLA" << std::endl;
+    }
 
-            mPlayerHit = true;
-            mPlayerRespawnTimer = 0.0f;
-            mPlayer->set_active(false);
-            mStars->scroll(false);
+    for (int i = 0; i < mAsteroids.size(); ++i)
+    {
+        for (int j = 0; j < mAsteroids.size(); ++j)
+        {
+            if (mAsteroids[i]->collide_with(mAsteroids[j]) && !mAsteroids[i]->same_position(mAsteroids[j]))
+            {
+                AudioManager::instance()->play_sfx("Explosion4.wav", 0, 1);
+                mAsteroids.erase(mAsteroids.begin() + j);
+                mAsteroids[i]->move_little();
+                mAsteroids.push_back(new Asteroid('s'));
+                break;
+            }
         }
     }
 }
@@ -112,24 +131,15 @@ void Level::handle_player_death()
 {
     if (!mPlayer->is_animating())
     {
-        if (mPlayer->get_lives() > 0)
-        {
-            if (mPlayerRespawnTimer == 0.0f)
-                mPlayer->set_visible(false);
+        Vector2 finalPos = Vector2(704, 60);
 
-            mPlayerRespawnTimer += mTimer->delta_time();
-            if (mPlayerRespawnTimer >= mPlayerRespawnDelay)
-            {
-                mPlayer->set_active(true);
-                mPlayer->set_visible(true);
-                mPlayerHit = false;
-                mStars->scroll(true);
-            }
-        }
-        else
+        if ((int) mPlayer->get_pos(world).x == finalPos.x && (int) mPlayer->get_pos(world).y == finalPos.y)
         {
             if (mGameOverTimer == 0.0f)
+            {
                 mPlayer->set_visible(false);
+                mPlayerDestiny = true;
+            }
 
             mGameOverTimer += mTimer->delta_time();
             if (mGameOverTimer >= mGameOverDelay)
@@ -144,7 +154,8 @@ void Level::handle_enemy_spawning()
 {
     if (InputManager::instance()->key_pressed(SDL_SCANCODE_E))
     {
-        mEnemies.push_back(new TIEFighter());
+        //mEnemies.push_back(new TIEFighter());
+        mAsteroids.push_back(new Asteroid('b'));
     }
 }
 
@@ -169,9 +180,15 @@ void Level::update()
             mEnemies[i]->set_destiny(mPlayer->get_pos(world));
         }
 
-        handle_collisions();
+        for (int i = 0; i < mAsteroids.size(); ++i)
+        {
+            mAsteroids[i]->update();
+        }
 
-        if (mPlayerHit)
+        handle_collisions();
+        handle_player_death();
+
+        /*if (mPlayerDestiny)
         {
             handle_player_death();
         }
@@ -179,7 +196,7 @@ void Level::update()
         {
             if (InputManager::instance()->key_pressed(SDL_SCANCODE_N))
                 mCurrentState = finished;
-        }
+        }*/
     }
 }
 
@@ -201,7 +218,14 @@ void Level::render()
         for (int i = 0; i < mEnemies.size(); ++i)
             mEnemies[i]->render();
 
-        if (mPlayerHit)
+        for (int i = 0; i < mAsteroids.size(); ++i)
+        {
+            mAsteroids[i]->render();
+        }
+
+        mRebelBase->render();
+
+        if (mPlayerDestiny)
         {
             if (mPlayerRespawnTimer >= mPlayerRespawnLabelOnScreen)
                 mReadyLabel->render();
