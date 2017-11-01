@@ -2,13 +2,15 @@
 #include "camera/Camera.cpp"
 #include "imageshandler/ImageHandler.h"
 
-int main() {
+int main()
+{
 
-    Camera camera;
+    //Camera camera;
 
-    camera.useCamera();
+    //camera.useCamera();
 
-    ImageHandler imageSplitter(5, 5, 640, 480, "capture.png");
+    //ImageHandler imageSplitter(5, 5, 640, 480, "capture.png");
+    ImageHandler imageSplitter(5, 5, 1024, 640, "MGSPW.png");
 
     imageSplitter.split_image();
     imageSplitter.concat_image();

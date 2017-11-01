@@ -20,6 +20,16 @@ ImageHandler::~ImageHandler()
 
 }
 
+std::vector<cv::Mat3b>* ImageHandler::get_original_images()
+{
+    return &smallImages;
+}
+
+std::vector<cv::Mat3b>* ImageHandler::get_shuffle_images()
+{
+    return &shuffleImages;
+}
+
 void ImageHandler::init_seed()
 {
     for (int index = 0; index < smallImages.size(); ++index)
@@ -83,6 +93,19 @@ void ImageHandler::concat_image()
             index++;
         }
     }
+}
+
+bool ImageHandler::areEqual(const cv::Mat& a, const cv::Mat& b)
+{
+    cv::Mat temp;
+    cv::Mat tempA;
+    cv::Mat tempB;
+
+    cvtColor(a, tempA, CV_BGR2GRAY );
+    cvtColor(b, tempB, CV_BGR2GRAY );
+
+    cv::bitwise_xor(tempA, tempB, temp); //It vectorizes well with SSE/NEON
+    return !((bool) cv::countNonZero(temp));
 }
 
 void ImageHandler::show_image()

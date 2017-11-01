@@ -35,8 +35,12 @@ public:
     ImageHandler(int rowNumber, int colNumber, int width, int height, std::string src);
     ~ImageHandler();
 
+    std::vector<cv::Mat3b>* get_original_images();
+    std::vector<cv::Mat3b>* get_shuffle_images();
+
     void split_image();
     void concat_image();
+    bool areEqual(const cv::Mat& a, const cv::Mat& b);
     void show_image();
 };
 

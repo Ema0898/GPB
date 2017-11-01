@@ -1,5 +1,5 @@
-#ifndef GENETICPUZZLE_CAMERA_H
-#define GENETICPUZZLE_CAMERA_H
+#ifndef _CAMERA_H
+#define _CAMERA_H
 
 #include <opencv2/opencv.hpp>
 
