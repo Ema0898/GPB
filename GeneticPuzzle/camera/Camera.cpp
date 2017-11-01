@@ -11,18 +11,22 @@ void Camera::useCamera()
 
     while (true)
     {
-
         cap.read(frame);
         cv::imshow("Camera", frame);
+        cv::Mat frame2;
 
         if (cv::waitKey(10) == 's')
         {
-            cv::Mat frame2;
             frame2 = frame.clone();
-            cv::imshow("Captura Frame", frame2);
+            cv::imwrite("capture.png", frame2);
+            std::cout << "Foto tomada" << std::endl;
+            //cv::imshow("Captura Frame", frame2);
         }
 
         if (cv::waitKey(10) == 'd')
+        {
             break;
+        }
+
     }
 }
