@@ -10,11 +10,6 @@ Individual::~Individual()
 
 }
 
-Individual* Individual::reproduce(std::vector<cv::Mat>* father1, std::vector<cv::Mat>* mother, std::vector<int>* fit_father, std::vector<int>* fit_mother)
-{
-
-}
-
 void Individual::calculate_fitness()
 {
     int counter = 0;
