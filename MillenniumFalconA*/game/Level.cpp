@@ -44,6 +44,16 @@ Level::Level(int stage, Player* player)
     mRebelBase->set_pos(Vector2(700, 75));
 
     mCurrentState = running;
+
+    for (int i = 0; i < 7; ++i)
+    {
+        mAsteroids.push_back(new Asteroid('b'));
+    }
+
+    for (int i = 0; i < 7; ++i)
+    {
+        mEnemies.push_back(new TIEFighter());
+    }
 }
 
 Level::~Level()
@@ -106,10 +116,6 @@ void Level::handle_start_label()
 
 void Level::handle_collisions()
 {
-    if (InputManager::instance()->instance()->key_pressed((SDL_SCANCODE_X)))
-    {
-        std::cout << "HOLA" << std::endl;
-    }
 
     for (int i = 0; i < mAsteroids.size(); ++i)
     {
@@ -131,7 +137,7 @@ void Level::handle_player_death()
 {
     if (!mPlayer->is_animating())
     {
-        Vector2 finalPos = Vector2(704, 60);
+        Vector2 finalPos = Vector2(704, 62);
 
         if ((int) mPlayer->get_pos(world).x == finalPos.x && (int) mPlayer->get_pos(world).y == finalPos.y)
         {
@@ -168,6 +174,11 @@ void Level::update()
 {
     if (!mStageStarted)
     {
+        for (int i = 0; i < mAsteroids.size(); ++i)
+        {
+            mAsteroids[i]->update();
+        }
+
         handle_start_label();
     }
     else
@@ -187,16 +198,6 @@ void Level::update()
 
         handle_collisions();
         handle_player_death();
-
-        /*if (mPlayerDestiny)
-        {
-            handle_player_death();
-        }
-        else
-        {
-            if (InputManager::instance()->key_pressed(SDL_SCANCODE_N))
-                mCurrentState = finished;
-        }*/
     }
 }
 
@@ -204,6 +205,11 @@ void Level::render()
 {
     if (!mStageStarted)
     {
+        for (int i = 0; i < mAsteroids.size(); ++i)
+        {
+            mAsteroids[i]->render();
+        }
+
         if (mLabelTimer > mStageLabelOnScreen && mLabelTimer < mStageLabelOffScreen)
         {
             mStageLabel->render();

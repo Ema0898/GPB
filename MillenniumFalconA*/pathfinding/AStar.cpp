@@ -7,7 +7,7 @@ bool AStar::isValid(int row, int col)
 
 bool AStar::isUnBlocked(std::vector<std::vector<int>> grid, int row, int col)
 {
-    if (grid[row][col] == 1)
+    if (grid[row][col] != 0)
     {
         return true;
     }

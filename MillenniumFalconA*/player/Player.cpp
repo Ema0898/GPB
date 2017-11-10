@@ -55,7 +55,7 @@ void Player::handle_movement()
     aStar->aStarSearch(grid->get_matrix(), current_pos, current_des);
     Pair delta = aStar->getCell();
 
-    /*if (delta.first < current_pos.first && delta.second == current_pos.second)
+    if (delta.first < current_pos.first && delta.second == current_pos.second)
     {
         translate(-VEC2_UP * mMoveSpeed * mTimer->delta_time(), world);
     }
@@ -71,11 +71,12 @@ void Player::handle_movement()
     {
         translate(-VEC2_RIGHT * mMoveSpeed * mTimer->delta_time(), world);
     }
-    else if (inputManager->key_pressed((SDL_SCANCODE_Q)))
+
+    if (inputManager->key_pressed((SDL_SCANCODE_Q)))
     {
         std::cout << "//////////////////////////////" << std::endl;
         grid->print_matrix();
-    }*/
+    }
 
     Vector2 pos = get_pos(local);
     if (pos.x < mMoveBounds.x)

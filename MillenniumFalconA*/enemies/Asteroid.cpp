@@ -19,8 +19,8 @@ Asteroid::Asteroid(char size)
 
     mSpeed = 150.0f;
 
-    //set_pos(Vector2(rand() % Graphics::instance()->SCREEN_WIDTH, 0.0f));
-    set_pos(Vector2(320, 0.0f));
+    set_pos(Vector2(rand() % Graphics::instance()->SCREEN_WIDTH, 0.0f));
+    //set_pos(Vector2(320, 0.0f));
 }
 
 Asteroid::~Asteroid()
@@ -48,7 +48,7 @@ bool Asteroid::same_position(Asteroid *asteroid)
 
 void Asteroid::move_little()
 {
-    Vector2 pos = get_pos(local);    
+    Vector2 pos = get_pos(local);
     set_pos(Vector2(pos.x + 50, pos.y + 50));
 }
 
@@ -65,7 +65,7 @@ void Asteroid::handle_movement()
         set_pos(pos);
     }
 
-    grid->set_matrix_pos((int) (pos.x / 32), (int) (pos.y / 32), 0);
+    grid->set_matrix_pos((int) (pos.x / 32), (int) (pos.y / 32));
 }
 
 bool Asteroid::collide_with(Asteroid *asteroid)

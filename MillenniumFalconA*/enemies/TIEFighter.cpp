@@ -19,6 +19,7 @@ TIEFighter::TIEFighter()
     mDestiny = Vector2(18.0f, 24.0f);
 
     //set_pos(Vector2(300.0f, 150.0f));
+    //set_pos(Vector2(rand() % Graphics::instance()->SCREEN_WIDTH, Graphics::instance()->SCREEN_HEIGHT));
     set_pos(Vector2(rand() % Graphics::instance()->SCREEN_WIDTH, Graphics::instance()->SCREEN_HEIGHT));
 }
 
@@ -44,29 +45,31 @@ void TIEFighter::handle_movement()
     aStar->aStarSearch(grid->get_matrix(), current_pos, current_des);
     Pair delta = aStar->getCell();
 
+    //grid->set_matrix_pos_astar(current_pos.second, current_pos.first, 1);
+
     if (delta.first < current_pos.first && delta.second == current_pos.second)
     {
         translate(-VEC2_UP * mSpeed * mTimer->delta_time(), world);
-        grid->set_matrix_pos(current_pos.second, current_pos.first, 0);
+        grid->set_matrix_pos_astar(current_pos.second, current_pos.first);
     }
     else if (delta.first > current_pos.first && delta.second == current_pos.second)
     {
         translate(VEC2_UP * mSpeed * mTimer->delta_time(), world);
-        grid->set_matrix_pos(current_pos.second, current_pos.first, 0);
+        grid->set_matrix_pos_astar(current_pos.second, current_pos.first);
     }
     else if (delta.second > current_pos.second && delta.first == current_pos.first)
     {
         translate(VEC2_RIGHT * mSpeed * mTimer->delta_time(), world);
-        grid->set_matrix_pos(current_pos.second, current_pos.first, 0);
+        grid->set_matrix_pos_astar(current_pos.second, current_pos.first);
     }
     else if (delta.second < current_pos.second && delta.first == current_pos.first)
     {
         translate(-VEC2_RIGHT * mSpeed * mTimer->delta_time(), world);
-        grid->set_matrix_pos(current_pos.second, current_pos.first, 0);
+        grid->set_matrix_pos_astar(current_pos.second, current_pos.first);
     }
 
+    //grid->set_matrix_pos_astar(current_pos.second, current_pos.first, 0);
 
-    grid->set_matrix_pos(current_pos.second, current_pos.first, 0);
     Vector2 pos = get_pos(local);
     if (pos.x < mMoveBounds.x)
         pos.x = mMoveBounds.x;

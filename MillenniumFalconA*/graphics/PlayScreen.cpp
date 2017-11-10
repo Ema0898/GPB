@@ -50,7 +50,7 @@ void PlayScreen::start_new_game()
     delete mPlayer;
     mPlayer = new Player();
     mPlayer->set_parent(this);
-    mPlayer->set_pos(Vector2(Graphics::instance()->SCREEN_WIDTH * 0.4f, Graphics::instance()->SCREEN_HEIGHT * 0.9f));
+    mPlayer->set_pos(Vector2(Graphics::instance()->SCREEN_WIDTH * 0.4f, Graphics::instance()->SCREEN_HEIGHT));
     mPlayer->set_active(false);
 
     mStars->scroll(false);
@@ -83,7 +83,6 @@ void PlayScreen::update()
                 std::cout << "LEVEL STARTED" << std::endl;
                 start_next_level();
             }
-
         }
     }
     else
