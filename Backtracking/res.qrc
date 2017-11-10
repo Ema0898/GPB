@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>img/asteroid.png</file>
+        <file>img/naveAB.png</file>
+        <file>img/naveAR.png</file>
+        <file>img/naveDE.png</file>
+        <file>img/naveIZ.png</file>
+        <file>img/Base.png</file>
+        <file>img/space.jpg</file>
+    </qresource>
+</RCC>
