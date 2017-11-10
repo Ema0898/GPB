@@ -6,11 +6,17 @@
 class Population
 {
 private:
-    std::vector<Individual*> population;
-    std::vector<Individual*> bestIndividual;
+    std::vector<Individual> population;
+
+    Individual bestHigh;
+    Individual bestMedium;
+    Individual bestLow;
+
+    Individual perfect;
+
     int bestFitness;
 
-    const int INITIAL_POPULATION = 1;
+    const int POPULATION = 20;
 
     cv::Mat3b originalImage;
 
@@ -19,11 +25,14 @@ public:
     ~Population();
 
     void new_generation();
-    void reproduce(std::vector<cv::Mat>* father1, std::vector<cv::Mat>* mother, std::vector<bool>* fit_father, std::vector<bool>* fit_mother);
     void calc_population_fitness();
 
-    std::vector<Individual*>* get_population();
-    std::vector<Individual*>* get_best3();
+    std::vector<Individual>* get_population();
+
+    Individual* getBestHigh();
+    Individual* getBestMedium();
+    Individual* getBestLow();
+
     int get_best_fitnnes();
 
 };

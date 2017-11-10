@@ -10,8 +10,9 @@ int main()
     //camera.useCamera();
 
     //ImageHandler imageSplitter(5, 5, 640, 480, "capture.png");
-    /*cv::Mat3b hola = cv::imread("MGSPW.png");
-    std::vector<cv::Mat3b> images;
+    cv::Mat3b hola = cv::imread("MGSPW.png");
+
+    /*std::vector<cv::Mat3b> images;
     cv::Mat3b croppedImg = cv::Mat3b(hola.rows, hola.cols, cv::Vec3b(0,0,0));
 
     ImageHandler* imageSplitter = new ImageHandler(5, 5, 1024, 640);
@@ -30,7 +31,7 @@ int main()
     imageSplitter = nullptr;
     */
 
-    bool h1;
+    /*bool h1;
     bool h2;
 
     std::cout << "Father" << std::endl;
@@ -50,7 +51,7 @@ int main()
     else
     {
         std::cout << "No Parent" << std::endl;
-    }
+    }*/
 
     return 0;
 }
