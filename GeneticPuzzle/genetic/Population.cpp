@@ -4,26 +4,21 @@ Population::Population(cv::Mat3b image)
 {
     originalImage = image;
 
-    perfect = Individual(image);
+    perfect.setImage(image);
+    perfect.init();
 
     for (int i = 0; i < POPULATION; ++i)
     {
-        population.push_back(Individual(image));
+        population.push_back(Individual());
+        population[i].setImage(image);
+        population[i].init();
         population[i].randomize();
+        //population[i].init_fit_vector(*perfect.get_genes());
     }
 }
 
 Population::~Population()
 {
-
-    delete bestHigh;
-    bestHigh = nullptr;
-
-    delete bestMedium;
-    bestMedium = nullptr;
-
-    delete bestLow;
-    bestLow = nullptr;
 
 }
 
@@ -56,17 +51,17 @@ void Population::new_generation()
 {
     for (int i = 0; i < (POPULATION / 2); ++i)
     {
-        population.[i] = Individual(*bestHigh.get_genes(), *bestMedium.get_genes(), *bestHigh.get_fitness_vector() , *bestMedium.get_fitness_vector());
+        population[i] = Individual(*bestHigh.get_genes(), *bestMedium.get_genes(), *bestHigh.get_fitness_vector() , *bestMedium.get_fitness_vector(), originalImage);
     }
 
     for (int j = (POPULATION / 2); j < (POPULATION - (POPULATION / 4)); ++j)
     {
-        population.[j] = Individual(*bestHigh.get_genes(), *bestLow.get_genes(), *bestHigh.get_fitness_vector() , *bestLow.get_fitness_vector());
+        population[j] = Individual(*bestHigh.get_genes(), *bestLow.get_genes(), *bestHigh.get_fitness_vector() , *bestLow.get_fitness_vector(), originalImage);
     }
 
     for (int k = (POPULATION - (POPULATION / 4)); k < POPULATION; ++k)
     {
-        population.[k] = Individual(*bestMedium.get_genes(), *bestLow.get_genes(), *bestMedium.get_fitness_vector() , *bestLow.get_fitness_vector());
+        population[k] = Individual(*bestMedium.get_genes(), *bestLow.get_genes(), *bestMedium.get_fitness_vector() , *bestLow.get_fitness_vector(), originalImage);
     }
 }
 
@@ -108,6 +103,6 @@ void Population::calc_population_fitness()
     }
 
     bestFitness = best1;
-    std::cout << std::endl;
     std::cout << "Best: " << best3 << " , " << best2 << " , " << best1 << std::endl;
 }
+

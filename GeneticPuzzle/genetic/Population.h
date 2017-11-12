@@ -16,7 +16,7 @@ private:
 
     int bestFitness;
 
-    const int POPULATION = 20;
+    int POPULATION = 20;
 
     cv::Mat3b originalImage;
 

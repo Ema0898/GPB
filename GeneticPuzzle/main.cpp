@@ -1,57 +1,66 @@
 #include <iostream>
-#include "camera/Camera.cpp"
-#include "imageshandler/ImageHandler.h"
+#include "genetic/Population.h"
+
+using namespace std;
+using namespace cv;
 
 int main()
 {
-
-    //Camera camera;
-
-    //camera.useCamera();
-
-    //ImageHandler imageSplitter(5, 5, 640, 480, "capture.png");
     cv::Mat3b hola = cv::imread("MGSPW.png");
+    cv::Mat3b croppedImage = Mat3b(hola.rows, hola.cols, cv::Vec3b(0, 0, 0));
 
-    /*std::vector<cv::Mat3b> images;
-    cv::Mat3b croppedImg = cv::Mat3b(hola.rows, hola.cols, cv::Vec3b(0,0,0));
+    ImageHandler* handler = new ImageHandler(5, 5, 1024, 640);
+    vector<Mat3b> images;
 
-    ImageHandler* imageSplitter = new ImageHandler(5, 5, 1024, 640);
+    handler->split_image(images, hola);
 
-    imageSplitter->split_image(images, hola);
+    handler->concat_image(images, croppedImage);
 
-    imageSplitter->randomize(images);
+    Population population(hola);
+    Individual father;
+    Individual mother;
 
-    imageSplitter->concat_image(images, croppedImg);
 
-    cv::imshow("Split", croppedImg);
-
-    cv::waitKey(0);
-
-    delete imageSplitter;
-    imageSplitter = nullptr;
-    */
-
-    /*bool h1;
-    bool h2;
-
-    std::cout << "Father" << std::endl;
-    std::cin >> h1;
-
-    std::cout << "Mother" << std::endl;
-    std::cin >> h2;
-
-    if (h1 && h2)
+    while (population.getBestHigh()->get_fitness() < 25)
     {
-        std::cout << "Both Parent" << std::endl;
+        population.calc_population_fitness();
+        population.new_generation();
+
+        imshow("hijo1", *population.getBestHigh()->getShowImage());
     }
-    else if (h1 || h2)
+
+
+    //vector<Individual> ind = *population.get_population();
+    //vector<bool> fit = *ind[0].get_fitness_vector();
+    //vector<bool> fit = *population.getBestHigh()->get_fitness_vector();
+
+    /*father = *population.getBestHigh();
+    mother = *population.getBestMedium();
+
+    Individual* son = new Individual(*father.get_genes(), *mother.get_genes(), *father.get_fitness_vector() , *mother.get_fitness_vector(), hola);
+
+    std::cout << father.get_fitness() << std::endl;
+    std::cout << mother.get_fitness() << std::endl;
+    son->init_fit_vector(images);
+    son->calculate_fitness();
+    std::cout << son->get_fitness() << std::endl;
+
+    vector<bool> fit = *son->get_fitness_vector();
+
+    for (int i = 0; i < fit.size(); ++i)
     {
-        std::cout << "One Parent" << std::endl;
+        cout << fit[i] << endl;
     }
-    else
-    {
-        std::cout << "No Parent" << std::endl;
-    }*/
+
+    imshow("hijo1", *population.getBestHigh()->getShowImage());
+    imshow("hijo2", *population.getBestMedium()->getShowImage());
+    imshow("hijo", *son->getShowImage());
+    imshow("original", hola);
+    //imshow("original", croppedImage);
+     */
+
+    waitKey(0);
 
     return 0;
 }
+

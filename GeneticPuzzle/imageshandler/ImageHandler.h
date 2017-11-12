@@ -28,10 +28,10 @@ public:
     ImageHandler(int rowNumber, int colNumber, int width, int height);
     ~ImageHandler();
 
-    void randomize(std::vector<cv::Mat3b> &imageVector);
-    void split_image(std::vector<cv::Mat3b>& src, cv::Mat3b& image);
-    cv::Mat3b concat_image(std::vector<cv::Mat3b>& imageVector, cv::Mat3b& dest);
-    bool areEqual(const cv::Mat& a, const cv::Mat& b);
+    void randomize(std::vector<cv::Mat3b> &imageVector); //
+    void split_image(std::vector<cv::Mat3b>& src, cv::Mat3b& image); //
+    void concat_image(std::vector<cv::Mat3b>& imageVector, cv::Mat3b& dest);
+    bool areEqual(const cv::Mat& a, const cv::Mat& b); //
 };
 
 

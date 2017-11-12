@@ -22,7 +22,7 @@ ImageHandler::~ImageHandler()
 void ImageHandler::randomize(std::vector<cv::Mat3b> &imageVector)
 {
 
-    std::shuffle (imageVector.begin(), imageVector.end(), std::default_random_engine(seed));
+    std::shuffle(imageVector.begin(), imageVector.end(), std::default_random_engine(seed));
 }
 
 void ImageHandler::split_image(std::vector<cv::Mat3b>& src, cv::Mat3b& image)
@@ -49,7 +49,7 @@ void ImageHandler::split_image(std::vector<cv::Mat3b>& src, cv::Mat3b& image)
     }
 }
 
-cv::Mat3b ImageHandler::concat_image(std::vector<cv::Mat3b> &imageVector, cv::Mat3b& dest)
+void ImageHandler::concat_image(std::vector<cv::Mat3b> &imageVector, cv::Mat3b& dest)
 {
     int index = 0;
     for (int k = 0; k < dest.rows; k += yMax)
