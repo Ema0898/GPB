@@ -56,8 +56,6 @@ int main()
     //imshow("original", croppedImage);
      */
 
-    waitKey(0);
-
     return 0;
 }
 
