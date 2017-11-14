@@ -16,6 +16,8 @@ Individual::Individual(std::vector<cv::Mat3b>& father, std::vector<cv::Mat3b>& m
     setImage(originalImage);
     init();
     reproduce(father, mother, fit_father, fit_mother);
+
+    seed = std::chrono::system_clock::now().time_since_epoch().count();
 }
 
 void Individual::setImage(cv::Mat3b image)

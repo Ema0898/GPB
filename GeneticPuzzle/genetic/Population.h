@@ -25,7 +25,7 @@ public:
     ~Population();
 
     void new_generation();
-    void calc_population_fitness();
+    void calculate_population_fitness();
 
     std::vector<Individual>* get_population();
 

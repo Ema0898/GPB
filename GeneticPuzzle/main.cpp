@@ -1,32 +1,29 @@
 #include <iostream>
 #include "genetic/Population.h"
+#include "camera/Camera.h"
 
 using namespace std;
 using namespace cv;
 
 int main()
 {
+    Camera camera;
+    //camera.useCamera();
+
     cv::Mat3b hola = cv::imread("MGSPW.png");
-    cv::Mat3b croppedImage = Mat3b(hola.rows, hola.cols, cv::Vec3b(0, 0, 0));
-
-    ImageHandler* handler = new ImageHandler(5, 5, 1024, 640);
-    vector<Mat3b> images;
-
-    handler->split_image(images, hola);
-
-    handler->concat_image(images, croppedImage);
+    //cv::Mat3b hola = cv::imread("capture.png");
 
     Population population(hola);
-    Individual father;
-    Individual mother;
-
 
     while (population.getBestHigh()->get_fitness() < 25)
     {
-        population.calc_population_fitness();
+        population.calculate_population_fitness();
         population.new_generation();
 
         imshow("hijo1", *population.getBestHigh()->getShowImage());
+        imshow("hijo2", *population.getBestMedium()->getShowImage());
+        imshow("hijo3", *population.getBestLow()->getShowImage());
+        waitKey(0);
     }
 
 

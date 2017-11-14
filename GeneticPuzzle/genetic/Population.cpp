@@ -65,7 +65,7 @@ void Population::new_generation()
     }
 }
 
-void Population::calc_population_fitness()
+void Population::calculate_population_fitness()
 {
     int best1 = 0;
     int best2 = 0;
